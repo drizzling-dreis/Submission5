@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from attention_conv_2d import AttentionConv2d
-from depthwise_seperable_conv import DepthwiseSeperableConv
+from pyunet.lib.attention_conv_2d import AttentionConv2d
+from pyunet.lib.depthwise_seperable_conv import DepthwiseSeperableConv
 
 class CustomDoubleConv(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, padding=1, dilation=1, groups=1, bias=False):
