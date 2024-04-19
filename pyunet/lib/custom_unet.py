@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import attention_conv_2d as AttentionConv2d
+from attention_conv_2d import AttentionConv2d
 from depthwise_seperable_conv import DepthwiseSeperableConv
 
 class CustomDoubleConv(nn.Module):
