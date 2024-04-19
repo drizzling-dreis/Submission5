@@ -4,7 +4,7 @@ import torchvision.transforms.functional as TF
 import sys
 import os
 
-from .double_conv import DoubleConv
+from .custom_unet import CustomDoubleConv
 
 class UNet(nn.Module):
     def __init__(
@@ -19,12 +19,12 @@ class UNet(nn.Module):
         self.downs  = nn.ModuleList()
         self.pool   = nn.MaxPool2d(kernel_size=2, stride=2)
 
-        self.bottleneck = DoubleConv(512, 512 * 2)
+        self.bottleneck = CustomDoubleConv(512, 512 * 2)
 
-        self.downs.append(DoubleConv(in_channels, 64))
-        self.downs.append(DoubleConv(64, 128))
-        self.downs.append(DoubleConv(128, 256))
-        self.downs.append(DoubleConv(256, 512))
+        self.downs.append(CustomDoubleConv(in_channels, 64))
+        self.downs.append(CustomDoubleConv(64, 128))
+        self.downs.append(CustomDoubleConv(128, 256))
+        self.downs.append(CustomDoubleConv(256, 512))
 
         self.ups.append(
             nn.ConvTranspose2d(
@@ -35,7 +35,7 @@ class UNet(nn.Module):
             )
         )
 
-        self.ups.append(DoubleConv(512 * 2, 512))
+        self.ups.append(CustomDoubleConv(512 * 2, 512))
         
         self.ups.append(
             nn.ConvTranspose2d(
@@ -46,7 +46,7 @@ class UNet(nn.Module):
             )
         )
 
-        self.ups.append(DoubleConv(256 * 2, 256))
+        self.ups.append(CustomDoubleConv(256 * 2, 256))
         
         self.ups.append(
             nn.ConvTranspose2d(
@@ -57,7 +57,7 @@ class UNet(nn.Module):
             )
         )
 
-        self.ups.append(DoubleConv(128 * 2, 128))
+        self.ups.append(CustomDoubleConv(128 * 2, 128))
 
         self.ups.append(
             nn.ConvTranspose2d(
@@ -68,7 +68,7 @@ class UNet(nn.Module):
             )
         )
 
-        self.ups.append(DoubleConv(64 * 2, 64))
+        self.ups.append(CustomDoubleConv(64 * 2, 64))
 
         self.final_conv = nn.Conv2d(64, out_channels, kernel_size=1)
 

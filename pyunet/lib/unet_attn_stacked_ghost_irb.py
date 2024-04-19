@@ -5,7 +5,7 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
 
-from double_conv import DoubleConv
+from custom_unet import CustomDoubleConv
 from attention_block import AttentionBlock
 from ghost_conv import GhostConv
 from up_conv_stacked_ghost_irb import UpConvStackedGhostIrb

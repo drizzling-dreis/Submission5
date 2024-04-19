@@ -5,7 +5,7 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from double_conv import DoubleConv
+from custom_unet import CustomDoubleConv
 from attention_block import AttentionBlock
 from up_conv import UpConv
 
@@ -20,27 +20,27 @@ class UNetAttnDepth(nn.Module):
 
         self.maxpool = nn.MaxPool2d(kernel_size=2, stride=2)
 
-        self.conv1 = DoubleConv(in_channels, 64)
-        self.conv2 = DoubleConv(64, 128)
-        self.conv3 = DoubleConv(128, 256)
-        self.conv4 = DoubleConv(256, 512)
-        self.conv5 = DoubleConv(512, 1024)
+        self.conv1 = CustomDoubleConv(in_channels, 64)
+        self.conv2 = CustomDoubleConv(64, 128)
+        self.conv3 = CustomDoubleConv(128, 256)
+        self.conv4 = CustomDoubleConv(256, 512)
+        self.conv5 = CustomDoubleConv(512, 1024)
 
         self.up5 = UpConv(1024, 512)
         self.attn5 = AttentionBlock(512, 512, 256)
-        self.up_conv5 = DoubleConv(1024, 512)
+        self.up_conv5 = CustomDoubleConv(1024, 512)
 
         self.up4 = UpConv(512, 256)
         self.attn4 = AttentionBlock(256, 256, 128)
-        self.up_conv4 = DoubleConv(512, 256)
+        self.up_conv4 = CustomDoubleConv(512, 256)
 
         self.up3 = UpConv(256, 128)
         self.attn3 = AttentionBlock(128, 128, 64)
-        self.up_conv3 = DoubleConv(256, 128)
+        self.up_conv3 = CustomDoubleConv(256, 128)
 
         self.up2 = UpConv(128, 64)
         self.attn2 = AttentionBlock(64, 64, 32)
-        self.up_conv2 = DoubleConv(128, 64)
+        self.up_conv2 = CustomDoubleConv(128, 64)
 
         self.conv_1x1 = nn.Conv2d(64, 1, kernel_size=1, stride=1, padding=0)
 

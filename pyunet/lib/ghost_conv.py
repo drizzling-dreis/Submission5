@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from depthwise_seperable_conv import DepthwiseSeperableConv
-from double_conv import DoubleConv
+from custom_unet import CustomDoubleConv
 from attention_conv_2d import AttentionConv2d
 from inverted_residual_block import InvertedResidualBlock
 
@@ -9,7 +9,7 @@ class GhostConv(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, padding=1, dilation=1, groups=1, ratio=0.5):
         super(GhostConv, self).__init__()
 
-        self.primary_conv = DoubleConv(
+        self.primary_conv = CustomDoubleConv(
             in_channels,
             int(out_channels * ratio),
             kernel_size,

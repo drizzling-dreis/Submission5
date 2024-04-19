@@ -5,7 +5,7 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
 
-from double_conv import DoubleConv
+from custom_unet import CustomDoubleConv
 from attention_block_dp import AttentionBlockDp
 from depthwise_seperable_conv import DepthwiseSeperableConv
 from spatial_sse import SpatialSSE
